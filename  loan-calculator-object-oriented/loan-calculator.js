@@ -1,5 +1,4 @@
 // interest rate comes in % like 10 for 10%
-// It is just simple interests
 class LoanCalculator {
   constructor(loanAmount, annualInterestRate, yearsToPay) {
     this.loanAmount = loanAmount
@@ -10,13 +9,21 @@ class LoanCalculator {
   monthlyPayment() {
     let monthly
     if (this.monthlyInterestRate === 0) {
-      monthly = this.loanAmount / this.monthsToPay 
+      monthly = this.loanAmount / this.monthsToPay
     } else {
       const x = Math.pow(1 + this.monthlyInterestRate, this.monthsToPay)
       monthly = (this.loanAmount * x * this.monthlyInterestRate) / (x - 1)
     }
 
-    return Math.round(monthly * 100) / 100
+    return monthly
+  }
+
+  totalPayment() {
+    return this.monthlyPayment() * this.monthsToPay
+  }
+
+  totalInterest() {
+    return this.totalPayment() - this.loanAmount
   }
 }
 
